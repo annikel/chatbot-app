@@ -85,7 +85,7 @@ const ChatBox = () => {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type here.."
+          placeholder="Ask me about books..."
           className="chatbox-input"
         />
       </form>
