@@ -25,11 +25,11 @@ const ChatBox = () => {
     const maxPollingDuration = 10000;
     const pollingInterval = 200;
     let totalPollingTime = 0;
-  
+    
     const poll = setInterval(() => {
       getChatState(chatId, lastUpdate).then(data => {
-        if (data.exists) {
-          const assistantMessages = data.recentMessages.filter(msg => msg.role === 'assistant');
+        if (data !== null) {
+          const assistantMessages = data.RecentMessages.filter(msg => msg.Role === 'assistant');
           if (assistantMessages.length > 0) {
             setMessages(prevMessages => [...prevMessages, ...assistantMessages]);
             setLastUpdate(new Date().toISOString());
@@ -49,8 +49,8 @@ const ChatBox = () => {
     e.preventDefault();
     if (message) {
       const tempMessage = {
-        content: message,
-        role: 'user',
+        Content: message,
+        Role: 'user',
         id: new Date().getTime(),
       };
       setMessages(prevMessages => [...prevMessages, tempMessage]);
@@ -74,9 +74,9 @@ const ChatBox = () => {
       </div>
       <div className="chatbox-messages" ref={messagesEndRef}>
         {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
-            {msg.role === 'assistant' && <div className="message-role">Assistant</div>}
-            <span>{msg.content}</span>
+          <div key={index} className={`message ${msg.Role}`}>
+            {msg.Role === 'assistant' && <div className="message-role">Assistant</div>}
+            <span>{msg.Content}</span>
           </div>
         ))}
       </div>
@@ -85,7 +85,7 @@ const ChatBox = () => {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Ask me about books..."
+          placeholder="Type here..."
           className="chatbox-input"
         />
       </form>
